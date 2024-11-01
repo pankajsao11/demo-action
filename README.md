@@ -77,19 +77,18 @@ npm test: Runs the tests for the project.
 Advanced GitHub Actions Features
 Environment Variables: You can define environment variables at different levels, such as workflows, jobs, and steps. You can use the env keyword or reference secrets securely.
 
-yaml
 env:
   NODE_ENV: production
+
 Secrets: GitHub allows you to store sensitive information (like API keys, passwords) securely using secrets. Secrets are stored in the repository settings and referenced in workflows as secrets.SECRET_NAME.
 
-yaml
 - name: Deploy to production
   env:
     API_KEY: ${{ secrets.API_KEY }}
   run: echo "Deploying with API key"
+
 Matrix Builds: Matrix builds allow you to run the same job on multiple combinations of inputs, such as different versions of programming languages or operating systems.
 
-yaml
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -103,17 +102,17 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
+
 Artifacts: GitHub Actions allows you to upload and download artifacts, which are files generated during a workflow run (e.g., build files, test results, logs).
 
-yaml
 - name: Upload build artifacts
   uses: actions/upload-artifact@v3
   with:
     name: build
     path: path/to/build
+
 Caching: You can cache dependencies to speed up workflow runs by reducing the need to reinstall them every time. This is commonly used for Node.js dependencies, Python packages, etc.
 
-yaml
 - name: Cache Node.js modules
   uses: actions/cache@v3
   with:
@@ -121,9 +120,9 @@ yaml
     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     restore-keys: |
       ${{ runner.os }}-node-
+
 Conditional Execution: Use the if keyword to conditionally execute steps or jobs based on certain conditions.
 
-yaml
 - name: Deploy
   if: github.ref == 'refs/heads/main' && success()
   run: echo "Deploying..."
